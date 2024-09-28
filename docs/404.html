@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <title>Error | YoungBat Team</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <link rel="icon" href="./icon/favicon.ico" sizes="16x16">
+</head>
+<body>
+   <h1>YoungBat Team</h1>
+   <h2>Error 404.Page not found.<h2>
+   <h4>You can click <a href=https://youngbat-team.us.kg/help>here</a> to get help.</h4>
+   <h4>Alternatively, you can click <a href=mailto:youngbatfeedback@outlook.com>here</a> to report the problem.</h4>
+   <div id=time></div>
+   <script>
+    function getTime(){
+        var now = new Date().toUTCString();
+        var time = document.getElementById('time');
+        time.innerHTML = "UTC Time:"+now;
+    }
+    setInterval("getTime()",1000)
+    </script>
+
+</body>
+</html>
