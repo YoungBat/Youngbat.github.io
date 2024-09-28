@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Calculator | YoungBat Team</title>
+		<link rel="icon" href="../icon/favicon.ico" sizes="16x16">
+		 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+		<style type="text/css">
+			*{
+				margin: auto;
+				padding: 0px;
+				text-align: center;
+				font-family: "Î¢ÈíÑÅºÚ";
+			}
+			.content{
+				border-radius: 10%;
+				width: 400px;
+				height: 550px;
+				background-color: antiquewhite;
+			}
+			.clear{
+				border-radius: 50%;
+				width: 20%;
+				height: 72px;
+				background-color: #FF4500;
+			}
+			#result{
+				margin-top: 24px;
+				font-size: 16px;
+				width: 60%;
+				height: 72px;
+				text-align: left;
+				border-radius: 20px;
+				background-color: #FFE4C4;
+			}
+			.symbol{
+				margin-top: 36px;
+				font-size: xx-large;
+				border-radius: 50%;
+				width: 20%;
+				height: 72px;
+				background-color:bisque;
+			}
+			.number{
+				margin-top: 36px;
+				font-size: xx-large;
+				border-radius: 50%;
+				width: 20%;
+				height: 72px;
+				background-color:beige;
+			}
+			.calculate{
+				margin-top: 36px;
+				font-size: xx-large;
+				border-radius: 50%;
+				width: 20%;
+				height: 72px;
+				background-color: #FF4500;
+			}
+			.content input:hover{
+				box-shadow: 5px 5px 5px #888888;
+			}
+			.content input:active{
+				background-color: #FF0000;
+			}
+		</style>
+		<script type="text/javascript">
+			function clearValue(){
+				document.getElementById("result").value="";
+			}
+			function get(value){
+				document.getElementById("result").value+=value;
+			}
+			function calculate(){
+				var result=0;
+				result=document.getElementById("result").value;
+				document.getElementById("result").value="";
+				document.getElementById("result").value=eval(result);
+			};
+		</script>
+	</head>
+	<body>
+		<div class="banner">
+			<h2>
+				This is a calculator demo.
+			</h2>
+		</div>
+			<br />
+		<div class="content">
+			<input type="button" value="Clear" class="clear" onclick="clearValue()"/>
+			<input type="text" id="result" readonly="readonly" placeholder="TheResultsOfTheCalculationShow"/>
+				<br />
+			<input type="button" value="1" class="number" onclick="get(this.value)"/>
+			<input type="button" value="2" class="number" onclick="get(this.value)"/>
+			<input type="button" value="3" class="number" onclick="get(this.value)"/>
+			<input type="button" value="+" class="symbol" onclick="get(this.value)"/>
+				<br />
+			<input type="button" value="4" class="number" onclick="get(this.value)"/>
+			<input type="button" value="5" class="number" onclick="get(this.value)"/>
+			<input type="button" value="6" class="number" onclick="get(this.value)"/>
+			<input type="button" value="-" class="symbol" onclick="get(this.value)"/>
+				<br />
+			<input type="button" value="7" class="number" onclick="get(this.value)"/>
+			<input type="button" value="8" class="number" onclick="get(this.value)"/>
+			<input type="button" value="9" class="number" onclick="get(this.value)"/>
+			<input type="button" value="*" class="symbol" onclick="get(this.value)"/>
+				<br />
+			<input type="button" value="0" class="number" onclick="get(this.value)"/>
+			<input type="button" value="." class="symbol" onclick="get(this.value)"/>
+			<input type="button" value="/" class="symbol" onclick="get(this.value)"/>
+			<input type="button" value="=" class="calculate" onclick="calculate()"/>
+		</div>
+			<br />
+		<div class="footer">
+			<p align="center">CopyRight &copy; YoungBat</p>
+		</div>
+	</body>
+</html>

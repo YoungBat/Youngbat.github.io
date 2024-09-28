@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Timer | YoungBat Team</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <link rel="icon" href="../icon/favicon.ico" sizes="16x16">
+</head>
+<body>
+   <h1 style="text-align: center">This is a timer demo.</h1>
+   <div style="text-align: center">
+        <input type="text" id="timeValue" value="0 sec" readonly><br>
+        <button type="button" onclick="startTimer()">Start</button> <button type="button" onclick="stopTimer()">Pause</button> <button type="button" onclick="resetTimer()">Reset</button>
+   </div>
+   <script>
+        var second;
+        second=0;
+        var clock;
+        function resetTimer()
+        {
+            clearInterval(clock);
+            second=0;
+            document.getElementById('timeValue').value=second+' sec';
+        }
+        function startTimer()
+        {
+            clock=setInterval(timer,1000);
+        }
+        function stopTimer() {
+            clearInterval(clock);
+            document.getElementById('timeValue').value=second+' sec';
+        }
+        function timer(){
+            second++;
+            document.getElementById('timeValue').value=second+' sec';
+        }
+   </script>
+</body>
+</html>
