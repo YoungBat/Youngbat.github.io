@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timer | YoungBat-Team</title>
+    <link rel="icon" href="../image/favicon.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/timer.css">
+    <script>
+        let time = 0;
+        let timer;
+        function addTime() {
+            time++;
+            document.getElementById('time').value = unit(time);
+        }
+        function startTimer() {
+            clearInterval(timer);
+            timer = setInterval(addTime, 1000);
+        }
+        function stopTimer() {
+            clearInterval(timer);
+        }
+        function resetTimer() {
+            clearInterval(timer);
+            time = 0;
+            document.getElementById('time').value = time +'s';
+        }
+        function unit(time){
+            if(time < 60){
+                return time + 's';
+            }
+            else if (time >= 60 && time < 3600){
+                return Math.floor(time / 60) + 'm' + (time % 60) + 's';
+            }
+            else if(time >= 3600){
+                let hours = Math.floor(time / 3600);
+                let minutes = Math.floor((time - hours * 3600) / 60);
+                let seconds = time - hours * 3600 - minutes * 3600;
+                return hours + 'h' + minutes + 'm' + seconds +'s';
+            }
+        }
+    </script>
+</head>
+<body style="margin: 0;padding: 0">
+<div class="main">
+    <div class="header">
+        <div class="top-nav">
+            <img src="../image/favicon.png" alt="Logo" class="logo">
+            <div class="nav-item"><a href="/index.html">Home</a></div>
+            <div class="nav-item"><a href="/about.html">About</a></div>
+            <div class="nav-item"><a href="/download.html">Download Center</a></div>
+            <div class="nav-item"><a href="/reader.html">Reader Team</a></div>
+        </div>
+    </div>
+    <div class="banner">
+        <div class="banner-content">
+            <div class="timer">
+                <h1>Timer</h1>
+                <label for="time"></label><input type="text" value="0s" id="time" readonly>
+                <br/>
+                <button onclick="startTimer()">Start</button>
+                <button onclick="stopTimer()">Stop</button>
+                <button onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="info">
+            (C) 2025 YoungBat-Team,Inc. All rights reserved.
+        </div>
+    </div>
+</div>
+</body>
+</html>
