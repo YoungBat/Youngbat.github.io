@@ -2,35 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>YCleanup | YoungBat-Team</title>
+    <title>YConsole | YoungBat-Team</title>
     <link rel="icon" href="../image/favicon.png" type="image/x-icon" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-    <link rel="stylesheet" href="../css/home.css">
+    <script src="/js/load.js"></script>
+    <script>
+        function download() {
+            location.href = "./bin/YCleanup.zip";
+        }
+    </script>
 </head>
 <body style="margin: 0;padding: 0">
 <div class="main">
-    <div class="header">
-        <div class="top-nav">
-            <img src="../image/favicon.png" alt="Logo" class="logo">
-            <div class="nav-item"><a href="/index.html">Home</a></div>
-            <div class="nav-item"><a href="/about.html">About</a></div>
-            <div class="nav-item"><a href="/download.html">Download Center</a></div>
-            <div class="nav-item"><a href="/reader.html">Reader Team</a></div>
-        </div>
-    </div>
+    <div id="head"></div>
     <div class="banner">
-        <div class="banner-text">
-            <h1>Welcome to YoungBat-Team</h1>
-            <p>
-                YoungBat-Team is dedicated to developing tools that can help users use computers more conveniently and continuously provides updates. All code is open source, and users can use it for free. The members are all young people. We welcome your arrival!
-            </p>
-        </div>
+        <h2>YCleanup</h2>
+        <p>YCleanup is a desktop application designed to help users manage and optimize their computer systems. It offers a wide range of features and functionalities that enable users to perform various tasks such as cleaning up temporary files, optimizing system performance,  and more.</p>
+        <h3>Licence</h3>
+        <p>YCleanup is licensed under the GPL v3.0 License. You can use it for free.</p>
+        <iframe src="../image/licenceGPL.html" width="100%" height="500px" style="background-color: aqua"></iframe>
+        <button id="download" onclick="download()">Download</button>
     </div>
-    <div class="footer">
-        <div class="info">
-            (C) 2025 YoungBat-Team,Inc. All rights reserved.
-        </div>
-    </div>
+    <div id="footer"></div>
 </div>
 </body>
 </html>
