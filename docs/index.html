@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change language 选择语言 | YoungBat-Team</title>
+    <link rel="icon" href="./image/favicon.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>
+        window.param = "";
+    </script>
+    <script src="./js/load.js"></script>
+    <link rel="stylesheet" href="./css/load.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        li {
+            background-color: white;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        li:hover {
+            transform: scale(1.02);
+        }
+        a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+        }
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            margin-top: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body style="margin: 0;padding: 0">
+<div class="loading"></div>
+<div class="main" hidden>
+    <div id="head"></div>
+    <div class="banner">
+        <h1>Change language 选择语言</h1>
+        <ul>
+            <li><a href="/en-us/index">English(US)</a></li>
+            <li><a href="/zh-cn/index">简体中文</a></li>
+        </ul>
+    </div>
+    <div id="footer"></div>
+</div>
+</body>
+</html>
