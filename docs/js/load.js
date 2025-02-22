@@ -1,8 +1,16 @@
-function load() {
-    addScript('/js/jquery-3.7.1.min.js',function() {
-        $('#head').load('/static/head.html');
-        $('#footer').load('/static/footer.html');
-    });
+function load(language) {
+    if (language === 'zh-cn') {
+        addScript('/js/jquery-3.7.1.min.js',function() {
+            $('#head').load('/zh-cn/static/head.html');
+            $('#footer').load('/zh-cn/static/footer.html');
+        });
+    }
+    else if (language === 'en-us') {
+        addScript('/js/jquery-3.7.1.min.js',function() {
+            $('#head').load('/en-us/static/head.html');
+            $('#footer').load('/en-us/static/footer.html');
+        });
+    }
     setTimeout(function (){
         let loaders = document.getElementsByClassName("loading");
         for (let loader of loaders) {
@@ -22,4 +30,4 @@ function addScript(url,callback) {
     script.onload = callback;
     document.getElementsByTagName('head')[0].appendChild(script);
 }
-load();
+load(param);
