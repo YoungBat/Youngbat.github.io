@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>主页 | YoungBat-Team</title>
+    <link rel="icon" href="/image/favicon.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <script>
+        window.param = "zh-cn";
+    </script>
+    <script src="https://unpkg.com/mammoth@1.4.17/mammoth.browser.min.js"></script>
+    <script src="/js/load.js"></script>
+</head>
+<body style="margin: 0;padding: 0">
+<div class="main">
+    <div id="head"></div>
+
+    <div class="banner">
+        <form id="showForm" style="padding: 20px; max-width: 600px; margin: 0 auto;">
+            <label for="searchInput"></label><input type="text"
+                                                    id="searchInput"
+                                                    placeholder="输入关键词搜索文档..."
+                                                    style="width: 80%; padding: 8px; border: 1px solid #ddd;">
+            <button type="button"
+                    onclick="performSearch()"
+                    style="width: 18%; padding: 8px; background-color: #28a745; color: white; border: none;">
+                搜索
+            </button>
+            <div id="output" style="margin-top: 15px;padding-top: 15px;border: 1px solid black"></div>
+        </form>
+        <script>
+            function performSearch() {
+                const docs = document.getElementById('searchInput');
+                const filePath = './docs/' + docs.value + '.docx';
+                fetch(filePath)
+                    .then(response => {
+                        if (!response.ok) throw new Error('文件不存在');
+                        return response.blob();
+                    })
+                    .then(blob => {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const arrayBuffer = e.target.result;
+                            mammoth.convertToHtml({arrayBuffer: arrayBuffer})
+                                .then(function (result) {
+                                    document.getElementById('output').innerHTML = result.value;
+                                })
+                                .catch(function (error) {
+                                    console.error('转换失败:', error);
+                                });
+                        };
+                        reader.readAsArrayBuffer(blob);
+                    })
+                    .catch(error => {
+                        console.error('文件获取失败:', error);
+                    });
+            }
+        </script>
+        <form id="emailForm" onsubmit="return sendViaEmailClient()" style="padding: 20px; max-width: 600px; margin: 0 auto;">
+            <div style="margin-bottom: 15px;">
+                <label>您的姓名：</label>
+                <label for="userName"></label><input type="text" id="userName" required
+                                                     style="width: 100%; padding: 8px; margin-top: 5px;"
+                                                     placeholder="请输入真实姓名">
+            </div>
+            <div style="margin-bottom: 15px;">
+                <label>介绍内容：</label>
+                <label for="emailContent"></label><textarea id="emailContent" required
+                                                            style="width: 100%; height: 150px; padding: 8px; margin-top: 5px;"
+                                                            placeholder="请输入正文介绍（至少包含20个有效字符）"></textarea>
+            </div>
+            <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none;">
+                发送邮件
+            </button>
+            <div id="errorMsg" style="color: red; margin-top: 10px; display: none;"></div>
+            <p><strong><em style="color: #b31d28">*请自行上传附件，大小不超过5MB</em></strong></p>
+        </form>
+    </div>
+
+    <script>
+        // 新增验证函数
+        function validateForm() {
+            const name = document.getElementById('userName').value.trim();
+            const content = document.getElementById('emailContent').value.trim();
+            const errorDiv = document.getElementById('errorMsg');
+
+            // 基础正则验证（至少包含1个中文/英文）
+            const validRegex = /[\u4e00-\u9fa5a-zA-Z]/;
+
+            if (!validRegex.test(name)) {
+                errorDiv.textContent = "姓名需包含有效字符（中文/英文）";
+                errorDiv.style.display = 'block';
+                return false;
+            }
+
+            if (content.length < 20 || !validRegex.test(content)) {
+                errorDiv.textContent = "正文需至少20个有效字符（不能全为符号/数字）";
+                errorDiv.style.display = 'block';
+                return false;
+            }
+
+            errorDiv.style.display = 'none';
+            alert('验证通过，准备发送邮件...');
+            return true;
+        }
+            function sendViaEmailClient() {
+            if (!validateForm()) return false;
+            const name = document.getElementById('userName').value.trim();
+            const content = document.getElementById('emailContent').value.trim();
+                // 打开默认邮件客户端
+            window.location.href = `mailto:youngbatfeedback@outlook.com?subject=${encodeURIComponent('文章上传')}&body=${encodeURIComponent(
+                `姓名：${name}\n\n介绍：\n${content}`
+            )}`;
+            return false;
+        }
+    </script>
+    <div id="footer"></div>
+</div>
+</body>
+</html>
