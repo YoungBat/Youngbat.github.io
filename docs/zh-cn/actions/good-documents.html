@@ -59,14 +59,14 @@
 
                     // 模糊匹配逻辑
                     const matchedFiles = fileList.filter(file =>
-                        this.fuzzyMatch(searchTerm, file)
+                        fuzzyMatch(searchTerm, file)
                     );
 
                     resultsList.innerHTML = matchedFiles.map(file => `
                         <div class="result-item"
                              style="padding:8px; cursor:pointer; border-bottom:1px solid #eee;"
                              data-file="${file}"
-                             onclick="loadSelectedFile('${file}')">
+                             onclick="loadSelectedFile('${encodeURIComponent(file)}')">
                             ${file.replace('.docx', '')}
                         </div>
                     `).join('');
@@ -84,7 +84,9 @@
             }
             async function loadSelectedFile(filename) {
                 try {
-                    const response = await fetch(`./docs/${filename}`);
+                    // 添加解码处理
+                    const decodedFilename = decodeURIComponent(filename);
+                    const response = await fetch(`./docs/${decodedFilename}`);
                     if (!response.ok) {
                         console.error('文件加载失败:', response.statusText);
                         alert('文档加载失败，请检查文件名');
