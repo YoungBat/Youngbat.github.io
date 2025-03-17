@@ -26,34 +26,85 @@
                     style="width: 18%; padding: 8px; background-color: #28a745; color: white; border: none;">
                 搜索
             </button>
-            <div id="output" style="margin-top: 15px;padding-top: 15px;border: 1px solid black"></div>
+            <div id="searchResults" style="margin-top:10px; display:none;">
+                <div id="resultsList" style="border: 1px solid #ddd; max-height: 200px; overflow-y: auto;"></div>
+            </div>
+            <div id="output" style="margin-top: 15px;padding-top: 15px;border: 1px solid black;display: none"></div>
         </form>
         <script>
-            function performSearch() {
-                const docs = document.getElementById('searchInput');
-                const filePath = './docs/' + docs.value + '.docx';
-                fetch(filePath)
-                    .then(response => {
-                        if (!response.ok) throw new Error('文件不存在');
-                        return response.blob();
-                    })
-                    .then(blob => {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const arrayBuffer = e.target.result;
-                            mammoth.convertToHtml({arrayBuffer: arrayBuffer})
-                                .then(function (result) {
-                                    document.getElementById('output').innerHTML = result.value;
-                                })
-                                .catch(function (error) {
-                                    console.error('转换失败:', error);
-                                });
-                        };
-                        reader.readAsArrayBuffer(blob);
-                    })
-                    .catch(error => {
-                        console.error('文件获取失败:', error);
-                    });
+            let isSearching = false;
+            function fuzzyMatch(searchTerm, fileName) {
+                const pattern = searchTerm.toLowerCase();
+                const text = fileName.toLowerCase().replace('.docx', '');
+                let p = 0;
+
+                for (let t = 0; t < text.length; t++) {
+                    if (text[t] === pattern[p]) {
+                        if (++p === pattern.length) return true;
+                    }
+                }
+                return false;
+            }
+
+            async function performSearch() {
+                const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+                const resultsContainer = document.getElementById('searchResults');
+                const resultsList = document.getElementById('resultsList');
+                if (isSearching) return;
+                try {
+                    // 获取服务端文件列表
+                    const response = await fetch('./FILE-LIST.txt');
+                    const fileList = (await response.text()).split('\n').filter(Boolean);
+                    isSearching = true;
+
+                    // 模糊匹配逻辑
+                    const matchedFiles = fileList.filter(file =>
+                        this.fuzzyMatch(searchTerm, file)
+                    );
+
+                    resultsList.innerHTML = matchedFiles.map(file => `
+                        <div class="result-item"
+                             style="padding:8px; cursor:pointer; border-bottom:1px solid #eee;"
+                             data-file="${file}"
+                             onclick="loadSelectedFile('${file}')">
+                            ${file.replace('.docx', '')}
+                        </div>
+                    `).join('');
+
+                    resultsContainer.style.display = matchedFiles.length ? 'block' : 'none';
+                    document.getElementById('output').innerHTML = '';
+
+                } catch (error) {
+                    console.error('文件列表加载失败:', error);
+                    alert('暂时无法获取文档列表');
+                }
+                finally {
+                    isSearching = false;
+                }
+            }
+            async function loadSelectedFile(filename) {
+                try {
+                    const response = await fetch(`./docs/${filename}`);
+                    if (!response.ok) {
+                        console.error('文件加载失败:', response.statusText);
+                        alert('文档加载失败，请检查文件名');
+                        return;
+                    }
+
+                    const blob = await response.blob();
+                    const reader = new FileReader();
+                    reader.onload = async function(e) {
+                        const result = await mammoth.convertToHtml({arrayBuffer: e.target.result});
+                        const out = document.getElementById('output');
+                        document.getElementById('searchResults').style.display = 'none';
+                        out.innerHTML = result.value;
+                        out.style.display = 'block';
+                    };
+                    reader.readAsArrayBuffer(blob);
+                } catch (error) {
+                    console.error('文件加载失败:', error);
+                    alert('文档加载失败，请检查文件名');
+                }
             }
         </script>
         <form id="emailForm" onsubmit="return sendViaEmailClient()" style="padding: 20px; max-width: 600px; margin: 0 auto;">
@@ -73,7 +124,7 @@
                 发送邮件
             </button>
             <div id="errorMsg" style="color: red; margin-top: 10px; display: none;"></div>
-            <p><strong><em style="color: #b31d28">*请自行上传附件，大小不超过5MB</em></strong></p>
+            <p><strong><em style="color: #b31d28">*请自行上传附件，大小不超过5MB<br>*格式为：xxx - yourName.docx</em></strong></p>
         </form>
     </div>
 
