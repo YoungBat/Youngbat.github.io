@@ -54,24 +54,23 @@
                 try {
                     // 获取服务端文件列表
                     const response = await fetch('./FILE-LIST.txt');
-                    const fileList = (await response.text()).split('\n').filter(Boolean);
-                    isSearching = true;
+                    // 修改文件列表处理逻辑
+                    const fileList = (await response.text())
+                        .split('\n')
+                        .map(line => line.trim())  // 新增：去除前后空白
+                        .filter(line => line.endsWith('.docx') && !/\s/.test(line) && fuzzyMatch(searchTerm, line));  // 新增：过滤非法文件名
 
-                    // 模糊匹配逻辑
-                    const matchedFiles = fileList.filter(file =>
-                        fuzzyMatch(searchTerm, file)
-                    );
-
-                    resultsList.innerHTML = matchedFiles.map(file => `
+                    // 修改结果项生成逻辑
+                    resultsList.innerHTML = fileList.map(file => `
                         <div class="result-item"
                              style="padding:8px; cursor:pointer; border-bottom:1px solid #eee;"
                              data-file="${file}"
-                             onclick="loadSelectedFile('${encodeURIComponent(file)}')">
+                             onclick="loadSelectedFile('${encodeURIComponent(file).replace(/'/g, '&#39;')}')">
                             ${file.replace('.docx', '')}
-                        </div>
-                    `).join('');
+                        </div>`
+                    ).join('');
 
-                    resultsContainer.style.display = matchedFiles.length ? 'block' : 'none';
+                    resultsContainer.style.display = fileList.length ? 'block' : 'none';
                     document.getElementById('output').innerHTML = '';
 
                 } catch (error) {
