@@ -1,0 +1,18 @@
+body {
+    background: linear-gradient(to bottom right, #1a1a1a, #2d2d2d);
+    color: #ffffff;
+}
+
+/* 继承原有布局，仅修改颜色相关样式 */
+.sidebar {
+    background: linear-gradient(to right, #2d2d2d, #1a1a1a);
+    color: #ffffff;
+}
+
+.content {
+    background: linear-gradient(to left, #2d2d2d, #1a1a1a);
+    color: #ffffff;
+}
+.glitch-title{
+    color: #ffffff;
+}

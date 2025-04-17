@@ -1,0 +1,196 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh; /* 新增 */
+    background: linear-gradient(145deg,
+        #f0f8ff 0%,
+        lightblue 30%,
+        lightskyblue 70%) fixed; /* 调整渐变角度和色标位置 */
+    background-size: cover; /* 新增 */
+}
+.container {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    gap: 20px;
+    padding-top: 0;
+    margin-top: 0;
+}
+.sidebar {
+    border-right: 1px solid rgba(224,240,255,0.8);
+    box-shadow: 4px 0 8px -4px rgba(0,0,0,0.05);
+}
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100px;
+    color: #000;
+    border-bottom: 1px solid rgba(224,240,255,0.8);
+    box-shadow: 4px 0 8px -4px rgba(0,0,0,0.05);
+    h1 {
+        margin: 0;
+        font-size: 3vh;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+    }
+}
+.glitch-title {
+    position: relative;
+    font-size: 2.5rem;
+    color: #000;
+    animation: title-float 3s ease-in-out infinite;
+
+    &::after {
+        content: attr(data-text);
+        position: absolute;
+        left: 2px;
+        text-shadow: -2px 0 #00BFFF;
+        clip: rect(0, 900px, 0, 0);
+        animation: glitch-1 2s infinite;
+        color: #000;
+    }
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 240px;
+    padding: 20px;
+    position: relative;
+    color: #000;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2px;
+        height: 100%;
+        background-size: 400% 400%;
+        animation: gradientAnimation 15s ease infinite;
+    }
+
+    nav {
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                padding: 12px;
+                margin: 8px 0;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 6px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.2);
+                    color: #000;
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 5px;
+                    height: 5px;
+                    background: rgba(255, 255, 255, 0.4);
+                    border-radius: 50%;
+                    transform: translate(-50%, -50%);
+                    opacity: 0;
+                }
+
+                &:active::before {
+                    animation: ripple 0.4s ease-out forwards;
+                    opacity: 1;
+                }
+            }
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+
+            &:hover {
+                filter: invert(1);
+            }
+        }
+    }
+}
+
+.theme-switcher {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* 修正图标切换逻辑 */
+.light-icon { display: inline; }
+
+body[data-theme="dark"] .light-icon { display: none; }
+body[data-theme="dark"] .dark-icon { display: inline; }.dark-icon { display: none; }
+[href*="dark.css"] .light-icon { display: none; }
+[href*="dark.css"] .dark-icon { display: inline; }
+
+
+/* 定义基础变量 */
+:root {
+    --bg-primary: linear-gradient(to bottom right, palegoldenrod, #ffffff);
+    /* 在根元素定义文本颜色变量 */
+    :root {
+        --text-primary: #000;
+    }
+
+    [data-theme="dark"] {
+        --text-primary: #fff;
+    }
+    * {
+        color: var(--text-primary);
+    }
+
+    /* 特殊元素补充定义 */
+    .glitch-title,
+    .sidebar h3,
+    .content {
+        padding-left: 0;
+        flex: 1;
+        h2 {
+            color: var(--text-primary) !important;
+        }
+    }
+}
+
+/* 暗色主题变量 */
+[data-theme="dark"] {
+    --bg-primary: linear-gradient(to bottom right, #1a1a1a, #2d2d2d);
+    --text-primary: #fff; /* 新增字体颜色定义 */
+}
+
+/* 应用变量 */
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background 0.5s ease;
+}
+
+/* 侧边栏和内容区域同步更新 */
+.sidebar, .content {
+    background: var(--bg-primary);
+}[href*="dark.css"] .dark-icon { display: inline; }

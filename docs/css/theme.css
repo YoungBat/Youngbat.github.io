@@ -1,0 +1,17 @@
+/* 主题变量 */
+:root {
+    --bg-primary: linear-gradient(to bottom right, #f0f8ff, #ffffff);
+    --text-primary: #000;
+}
+
+[data-theme="dark"] {
+    --bg-primary: linear-gradient(to bottom right, #1a1a1a, #2d2d2d);
+    --text-primary: #fff;
+}
+
+/* 主题应用 */
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background 0.5s ease, color 0.3s ease;
+}
