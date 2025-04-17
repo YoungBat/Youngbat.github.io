@@ -2,42 +2,154 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Download Center | YoungBat-Team</title>
-    <link rel="icon" href="/image/favicon.png" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-    <script>
-        window.param = "en-us";
-    </script>
-    <script src="/js/load.js"></script>
-    <link rel="stylesheet" href="/css/download.css">
+    <title>Download Page | YoungBat-Team</title>
+    <link href="/css/base.css" rel="stylesheet">
+    <script src="/js/theme-loader.js"></script>
+    <link href="/css/light.css" rel="stylesheet">
+    <link href="/image/favicon.png" rel="icon" type="image/x-icon"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <style>
+        .download-table-container {
+            margin: 20px;
+            overflow-x: auto;
+        }
+
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-primary);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .styled-table th {
+            background: rgba(0, 120, 212, 0.8);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .styled-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(224, 240, 255, 0.3);
+            color: var(--text-primary);
+        }
+
+        .styled-table tr:hover td {
+            background: rgba(0, 120, 212, 0.05);
+        }
+
+        .download-btn {
+            background: rgba(0, 120, 212, 0.1);
+            border: 2px solid #0078D4;
+            color: #0078D4;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #0078D4;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 600px) {
+            .styled-table {
+                font-size: 14px;
+            }
+
+            .download-btn {
+                padding: 6px 15px;
+            }
+        }
+        .license-badge {
+          display: inline-block;
+          padding: 4px 12px;
+          border-radius: 16px;
+          background: rgba(0, 120, 212, 0.15);
+          color: #0078D4;
+          text-decoration: none;
+          font-size: 0.9em;
+          transition: all 0.2s ease;
+        }
+
+        .license-badge:hover {
+          background: rgba(0, 120, 212, 0.25);
+          transform: translateY(-1px);
+        }
+
+        /* 调整表格列宽 */
+        .styled-table th:nth-child(4),
+        .styled-table td:nth-child(4) {
+          width: 120px;
+        }
+    </style>
+
 </head>
-<body style="margin: 0;padding: 0">
-<div class="main">
-    <div id="head"></div>
-    <div class="banner">
-        <table>
-            <thead>
+<body data-theme="light">
+<header>
+    <h1 class="glitch-title">Download Page of YoungBat-Team</h1>
+    <button class="theme-switcher" onclick="ThemeManager.toggle()">
+        <span class="light-icon">🌞</span>
+        <span class="dark-icon">🌙</span>
+    </button>
+</header>
+<div class="container">
+    <aside class="sidebar">
+        <nav>
+            <h3>Menu</h3>
+            <ul>
+                <li><a href="/index.html">Homepage</a></li>
+                <li><a href="/download.html">DownloadPage</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <!-- 新增下载表格 -->
+        <div class="download-table-container">
+            <table class="styled-table">
+                <thead>
+                <script>
+                    // 新增下载逻辑
+                    function startDownload(name) {
+                        const link = document.createElement('a');
+                        link.style.display = 'none';
+                            link.href = '/downloads/' + name;
+                            link.download = name;
+
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }
+                </script>
                 <tr>
-                    <th>Name</th>
+                    <th>FileName</th>
                     <th>Version</th>
-                    <th>Link</th>
+                    <th>Size</th>
+                    <th>License</th> <!-- 新增列 -->
+                    <th>Download</th>
                 </tr>
-            </thead>
-            <tbody>
-               <tr>
-                   <td>YCleanup</td>
-                   <td>1.0.0</td>
-                   <td><a href="./files/YCleanup.html">Download</a></td>
-               </tr>
+                </thead>
+                <tbody>
                 <tr>
-                    <td>YConsole</td>
-                    <td>1.0.0</td>
-                    <td><a href="./files/YConsole.html">Download</a></td>
+                    <td>YCleanup</td>
+                    <td>v1.0.0</td>
+                    <td>7.16 MB</td>
+                    <td>
+                        <a href="/licences/licenceGPL.html" class="license-badge">GPL-3.0</a>
+                    </td>
+                    <td>
+                        <button class="download-btn" onclick="startDownload('YCleanup.zip')">Get</button>
+                    </td>
                 </tr>
-            </tbody>
-        </table>
-    </div>
-    <div id="footer"></div>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </div>
 </body>
 </html>

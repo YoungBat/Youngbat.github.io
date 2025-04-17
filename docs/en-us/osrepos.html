@@ -2,16 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Homepage | YoungBat-Team</title>
+    <title>Open Source Repositories | YoungBat-Team</title> <!-- 修正标题 -->
     <link href="/css/base.css" rel="stylesheet">
     <script src="/js/theme-loader.js"></script>
     <link href="/css/light.css" rel="stylesheet">
     <link href="/image/favicon.png" rel="icon" type="image/x-icon"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <style>
+
+        .repo-list {
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .repo-card {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body data-theme="light">
 <header>
-    <h1 class="glitch-title">Homepage of YoungBat-Team</h1>
+    <h1 class="glitch-title">Open Source Repositories Page of YoungBat-Team</h1>
     <button onclick="ThemeManager.toggle()" class="theme-switcher">
         <span class="light-icon">🌞</span>
         <span class="dark-icon">🌙</span>
@@ -29,11 +43,16 @@
     </aside>
 
     <main class="content">
-        <h2>The latest developments</h2>
-        <article>
-            <p>2025-4-5 We included new style for our website!And our program "YCleanup" will publish Pro Edition,added more features!Let's try!Have one week to use for free!</p>
-        </article>
+        <section class="repo-list">
+            <h2 class="glitch-text">Open Source Repositories</h2>
+            <div class="repo-card">
+                <h3>YSdk</h3>
+                <p>A safe,easy,little SDK for C# .net 8.0</p>
+                <a href="https://github.com/YoungBat/YSdk" class="glitch-link">Visit repository</a>
+            </div>
+        </section>
     </main>
+
 </div>
 </body>
 </html>
